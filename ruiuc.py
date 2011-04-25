@@ -49,7 +49,7 @@ def get_from_uid(uid):
     
     if(len(res) <= 0):
         personal_string = ""
-    else
+    else:
         personal_string = res[0][0]
         
     cursor.execute("SELECT crn FROM " + CRN_TABLE_NAME + " WHERE uid IS \"" + uid + "\"")
