@@ -82,11 +82,21 @@ def get_from_crn(crn):
     connection.close()
     return json.dumps({'personal_strings': personal_string_list})
     
+def html_escape(text):
+    text = text.replace('&', '&amp;')
+    text = text.replace('"', '&quot;')
+    text = text.replace("'", '&#39;')
+    text = text.replace(">", '&gt;')
+    text = text.replace("<", '&lt;')
+    return text
+    
 def put_to_uid(uid, crn_list_, personal_string):
     db_exists_check()
     
+    personal_string = html_escape(personal_string)
+    
     # validate input data
-    if re.search(r'[^a-zA-Z:,0-9\s]+', uid + crn_list_ + personal_string) is not None:
+    if re.search(r'[^a-zA-Z:,&;#0-9\s]+', uid + crn_list_ + personal_string) is not None:
         return json.dumps({'error': 'sql'})
         
     crn_list = crn_list_.split(',')
