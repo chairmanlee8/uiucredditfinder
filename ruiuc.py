@@ -61,12 +61,14 @@ def get_from_uid(uid):
     connection.close()
     return json.dumps({'personal_string': personal_string, 'crn_list': crn_list})
     
-def put_to_uid(uid, crn_list, personal_string):
+def put_to_uid(uid, crn_list_, personal_string):
     db_exists_check()
     
     # validate input data
-    if re.search(r'[^a-zA-Z:0-9\s]+', uid + ''.join(crn_list) + personal_string) is not None:
+    if re.search(r'[^a-zA-Z:0-9\s]+', uid + crn_list_ + personal_string) is not None:
         return json.dumps({'error': 'sql'})
+        
+    crn_list = crn_list_.split(',')
     
     connection = sqlite.connect(DATABASE_NAME)
     cursor = connection.cursor()

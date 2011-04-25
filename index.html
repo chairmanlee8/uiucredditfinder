@@ -1,0 +1,94 @@
+<html>
+<head>
+    <title>UIUC Reddit Finder</title>
+    
+    <script type="text/javascript" src="jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="md5-min.js"></script>
+</head>
+
+<body style="padding: 30px;">
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $("#crn_add").click(function ()
+            {
+                if($("#crn").val().length > 0)
+                {
+                    $("#crn_select").append($("<option></option>").attr("value", $("#crn").val()).text($("#crn").val()));
+                }
+            });
+            
+            $("#crn_remove").click(function ()
+            {
+                $("#crn_select :selected").remove();
+            });
+            
+            $("#go").click(function ()
+            {
+                // Generate a random uid for this user
+                var uid = hex_md5(String(Math.random()));
+                
+                var crn_list = new Array();
+                
+                $("#crn_select option").each(function()
+                {
+                    crn_list.push($(this).val());
+                });
+                
+                var crn_list_ = crn_list.join(',');
+                var personal_string = $("#info").html();
+                
+                // Send info to server, then redirect to user's unique page if successful
+                $.post(
+                    'ruiuc.py/put_to_uid',
+                    {
+                        'uid': uid,
+                        'crn_list_': crn_list_,
+                        'personal_string': personal_string
+                    },
+                    function(data)
+                    {
+                        if('error' in data)
+                        {
+                            alert('Oops! Looks like some error occured. Try again?');
+                        }
+                        else
+                        {
+                            window.location.replace("http://stackoverflow.com");
+                        }
+                    },
+                    'json'
+                );
+            });
+        });
+    </script>
+    
+    <center>
+    <h1>r/uiuc CRN Matchup</h1>
+    <table>
+        <tr>
+            <th>Enter your CRN's</th>
+            <th>Tell us something about yourself</th>
+            <th>Find redditors in your classes!</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="crn" /><input type="button" value="Add" id="crn_add" /><input type="button" value="Remove" id="crn_remove" /><br/>
+                <select size="10" id="crn_select">
+                </select>
+            </td>
+            <td>
+                <textarea style="width: 300px; height: 200px;" id="info"></textarea>
+            </td>
+            <td style="text-align: center;">
+                <input type="button" style="width: 100px; height: 35px;" value="Go!" id="go" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3 style="padding-top: 20px;">Obligatory warning: this site is public, therefore do not share any information you are not willing to make public.</td>
+        </tr>
+    </table>
+    </center>
+</body>
+
+</html>
