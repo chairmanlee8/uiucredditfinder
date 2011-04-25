@@ -73,7 +73,7 @@ def get_from_crn(crn):
     
     personal_string_list = []
     
-    cursor.execute("SELECT personal_string FROM ruiuc_crn, ruiuc_string WHERE ruiuc_crn.uid = ruiuc_string.uid AND ruiuc_crn.crn = " + crn)
+    cursor.execute("SELECT ruiuc_string.personal_string FROM ruiuc_crn, ruiuc_string WHERE ruiuc_crn.uid = ruiuc_string.uid AND ruiuc_crn.crn = " + crn)
     res = cursor.fetchall()
     
     for row in res:
