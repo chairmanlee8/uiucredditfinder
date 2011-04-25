@@ -96,7 +96,7 @@ def put_to_uid(uid, crn_list_, personal_string):
     personal_string = html_escape(personal_string)
     
     # validate input data
-    if re.search(r'[^a-zA-Z:,&;#0-9\s]+', uid + crn_list_ + personal_string) is not None:
+    if re.search(r'[^a-zA-Z:,0-9\s]+', uid + crn_list_) is not None:
         return json.dumps({'error': 'sql'})
         
     crn_list = crn_list_.split(',')
