@@ -87,3 +87,5 @@ def put_to_uid(uid, crn_list_, personal_string):
     connection.commit()
     connection.close()
     
+    return json.dumps({'success': ''})
+    
