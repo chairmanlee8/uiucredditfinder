@@ -77,7 +77,7 @@ def get_from_crn(crn):
     res = cursor.fetchall()
     
     for row in res:
-        crn_list.append(row[0])
+        personal_string_list.append(row[0])
         
     connection.close()
     return json.dumps({'personal_strings': personal_string_list})
