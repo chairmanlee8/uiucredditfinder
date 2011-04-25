@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>UIUC Reddit Finder</title>
+    
+    <script type="text/javascript" src="jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="md5-min.js"></script>
+</head>
+
+<body style="padding: 30px;">
+    <script type="text/javascript">
+        // Read a page's GET URL variables and return them as an associative array.
+        function getUrlVars()
+        {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+        
+        $(document).ready(function ()
+        {
+            getParams = getUrlVars();
+            uid = getParams['uid'];
+            
+            $.post(
+                'ruiuc.py/get_from_uid',
+                {
+                    'uid': uid
+                },
+                function(data)
+                {
+                    if('error' in data)
+                    {
+                        alert('Oops! Something happened...try again?');
+                    }
+                    else
+                    {
+                        for(var i in data.crn_list)
+                        {
+                            $("#results").append("<a class=\"crn\"></a>").text(String(data.crn_list[i]));
+                            $("#results").append("&nbsp;");
+                        }
+                    }
+                },
+                'json'
+            );
+        });
+    </script>
+    
+    <div>Congratulations! This is your unique page which keeps all of your CRN's. To check for updates, just bookmark this page and come back later!</div><br/>
+    <div id="choose">Choose a CRN to see what other people are in it: </div><br/>
+    <div id="results">
+    </div>
+</body>
+
+</html>
