@@ -80,7 +80,7 @@ def get_from_crn(crn):
         crn_list.append(row[0])
         
     connection.close()
-    return json.dumps({'personal_strings', personal_string_list})
+    return json.dumps({'personal_strings': personal_string_list})
     
 def put_to_uid(uid, crn_list_, personal_string):
     db_exists_check()
