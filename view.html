@@ -46,6 +46,11 @@
                             htmlString += "<a class=\"crn\" href=\"\">" + String(data["crn_list"][i]) + "</a>&nbsp;";
                         }
                         $("#choose").html(htmlString);
+                        
+                        $(".crn").click(function()
+                        {
+                            return false;
+                        });
                     }
                 },
                 'json'
