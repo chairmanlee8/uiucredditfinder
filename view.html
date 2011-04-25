@@ -43,7 +43,7 @@
                         var htmlString = "Choose a CRN to see what other people are in it: ";
                         for(var i in data["crn_list"])
                         {
-                            htmlString += "<a class=\"crn\">" + String(data["crn_list"][i]) + "</a>&nbsp;";
+                            htmlString += "<a class=\"crn\" href=\"\">" + String(data["crn_list"][i]) + "</a>&nbsp;";
                         }
                         $("#choose").html(htmlString);
                     }
