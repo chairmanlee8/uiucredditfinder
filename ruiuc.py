@@ -9,7 +9,7 @@ import re
 
 STRING_TABLE_NAME = "ruiuc_string"
 CRN_TABLE_NAME = "ruiuc_crn"
-DATABASE_NAME = "uiuc_reddit.db"
+DATABASE_NAME = "/home/smiley325/projects/uiucredditfinder/uiuc_reddit.db"
 
 def db_exists_check():
     connection = sqlite.connect(DATABASE_NAME)
