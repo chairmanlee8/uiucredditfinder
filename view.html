@@ -40,11 +40,12 @@
                     }
                     else
                     {
+                        var htmlString = "Choose a CRN to see what other people are in it: ";
                         for(var i in data["crn_list"])
                         {
-                            $("#choose").append("<a class=\"crn\"></a>").text(String(data["crn_list"][i]));
-                            $("#choose").append("&nbsp;");
+                            htmlString += "<a class=\"crn\">" + String(data["crn_list"][i]) + "</a>&nbsp;";
                         }
+                        $("#choose").html(htmlString);
                     }
                 },
                 'json'
