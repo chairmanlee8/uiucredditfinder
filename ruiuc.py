@@ -61,6 +61,27 @@ def get_from_uid(uid):
     connection.close()
     return json.dumps({'personal_string': personal_string, 'crn_list': crn_list})
     
+def get_from_crn(crn):
+    db_exists_check()
+    
+    # validate input data
+    if re.search(r'[^a-zA-Z:,0-9\s]+', crn) is not None:
+        return json.dumps({'error': 'sql'})
+        
+    connection = sqlite.connect(DATABASE_NAME)
+    cursor = connection.cursor()
+    
+    personal_string_list = []
+    
+    cursor.execute("SELECT personal_string FROM ruiuc_crn, ruiuc_string WHERE ruiuc_crn.uid = ruiuc_string.uid AND ruiuc_crn.crn = " + crn)
+    res = cursor.fetchall()
+    
+    for row in res:
+        crn_list.append(row[0])
+        
+    connection.close()
+    return json.dumps({'personal_strings', personal_string_list})
+    
 def put_to_uid(uid, crn_list_, personal_string):
     db_exists_check()
     

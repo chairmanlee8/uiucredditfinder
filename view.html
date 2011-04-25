@@ -49,6 +49,31 @@
                         
                         $(".crn").click(function()
                         {
+                            // Get personal strings from crn
+                            $.post(
+                                'ruiuc.py/get_from_crn',
+                                {
+                                    'crn': $(this).html()
+                                },
+                                function(data)
+                                {
+                                    if('error' in data)
+                                    {
+                                        alert('Oops! Try again.');
+                                    }
+                                    else
+                                    {
+                                        var resultsString = "<ul>";
+                                        for(var i in data["personal_strings"])
+                                        {
+                                            resultsString += "<li>" + data["personal_strings"][i];
+                                        }
+                                        resultsString += "</ul>";
+                                        $("#results").html(resultsString);
+                                    }
+                                },
+                                'json'
+                            );
                             return false;
                         });
                     }
