@@ -40,10 +40,10 @@
                     }
                     else
                     {
-                        for(var i in data.crn_list)
+                        for(var i in data["crn_list"])
                         {
-                            $("#results").append("<a class=\"crn\"></a>").text(String(data.crn_list[i]));
-                            $("#results").append("&nbsp;");
+                            $("#choose").append("<a class=\"crn\"></a>").text(String(data["crn_list"][i]));
+                            $("#choose").append("&nbsp;");
                         }
                     }
                 },
